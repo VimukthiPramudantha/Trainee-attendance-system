@@ -1,26 +1,28 @@
-import React from 'react';
-import './footer.css';
+import React from "react";
+import "./footer.css";
+import sltLogo from "../assets/sltLogo.png";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-logo">
-          {/* Logo with forward slashes */}
-          <div className="logo-slashes">//</div>
-          <div className="logo-text">
-            <span className="slt">SLT</span>
-            <span className="mobitel">MOBITEL</span>
-          </div>
+          <img src={sltLogo} alt="SLT Mobitel" />
         </div>
-        
+
         <nav className="footer-nav">
           <ul>
-            <li><a href="/">Home</a></li>
+            <li>
+              <a href="/">Home</a>
+            </li>
             <li className="separator">/</li>
-            <li><a href="/history">History</a></li>
+            <li>
+              <a href="/history">History</a>
+            </li>
             <li className="separator">/</li>
-            <li><a href="/reports">Reports</a></li>
+            <li>
+              <a href="/reports">Reports</a>
+            </li>
           </ul>
         </nav>
 

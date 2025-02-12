@@ -84,9 +84,15 @@ const HomeComponent = () => {
       <div className="sidebar">
         <Calendar onChange={setDate} value={date} />
         <div className="summary">
-          <p>Total Trainees: {trainees.length}</p>
-          <p>Present: {Object.values(attendance).filter((a) => a === "Present").length}</p>
-          <p>Absent: {Object.values(attendance).filter((a) => a === "Absent").length}</p>
+          <p>Total Trainees : {trainees.length}</p>
+          <p>
+            Present :{" "}
+            {Object.values(attendance).filter((a) => a === "Present").length}
+          </p>
+          <p>
+            Absent :{" "}
+            {Object.values(attendance).filter((a) => a === "Absent").length}
+          </p>
         </div>
       </div>
 
@@ -125,16 +131,25 @@ const HomeComponent = () => {
                           <td>{trainee.name}</td>
                           <td>{trainee.specialization}</td>
                           <td>
-                            <input
-                              type="checkbox"
-                              checked={attendance[trainee.id] === "Present"}
-                              onChange={() => handleAttendanceChange(trainee.id, "Present")}
-                            /> ✅
-                            <input
-                              type="checkbox"
-                              checked={attendance[trainee.id] === "Absent"}
-                              onChange={() => handleAttendanceChange(trainee.id, "Absent")}
-                            /> ❌
+                            <div>
+                              <input
+                                type="checkbox"
+                                className="attendance-checkbox attendance-present"
+                                checked={attendance[trainee.id] === "Present"}
+                                onChange={() =>
+                                  handleAttendanceChange(trainee.id, "Present")
+                                }
+                              />
+
+                              <input
+                                type="checkbox"
+                                className="attendance-checkbox attendance-absent"
+                                checked={attendance[trainee.id] === "Absent"}
+                                onChange={() =>
+                                  handleAttendanceChange(trainee.id, "Absent")
+                                }
+                              />
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -145,7 +160,7 @@ const HomeComponent = () => {
           ));
         })}
 
-        <button className="save-btn">Save Attendance</button>
+        <button className="save-btn">Save </button>
       </div>
     </div>
   );

@@ -3,13 +3,16 @@
   padding: 1rem 2rem;
   background-color: white;
   border-top: 1px solid #eaeaea;
-  position: absolute;
+  position: fixed; /* Keeps it fixed at the bottom */
   bottom: 0;
+  left: 0;
+  z-index: 1000; /* Ensures it stays above other elements */
 }
 
 .footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1920px;
+  /* margin: 0 auto; */
+  margin: 0px 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,29 +25,9 @@
   align-items: center;
   gap: 0.5rem;
 }
-
-.logo-slashes {
-  color: #00a651;
-  font-weight: bold;
-  font-size: 1.5rem;
+.footer-logo img{
+  height: 50px;
 }
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-
-.slt {
-  font-weight: bold;
-  color: #333;
-}
-
-.mobitel {
-  font-size: 0.9em;
-  color: #666;
-}
-
 .footer-nav ul {
   display: flex;
   list-style: none;
