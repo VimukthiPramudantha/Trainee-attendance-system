@@ -1,7 +1,7 @@
 // Calendar.jsx
-import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'; // Import the calendar styles
+import React, { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css"; // Import the calendar styles
 
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date()); // State to keep track of selected date
@@ -18,7 +18,8 @@ const CalendarComponent = () => {
         value={date} // Display selected date
       />
       <div>
-        <p>Selected Date: {date.toDateString()}</p> {/* Display selected date */}
+        <p>Selected Date: {date.toDateString()}</p>{" "}
+        {/* Display selected date */}
       </div>
     </div>
   );
