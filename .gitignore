@@ -1,2 +1,3 @@
-backend/.env
+trainee-attendance-backend/.env
+trainee-attendance-backend/node_modules
 
