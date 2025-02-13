@@ -1,0 +1,55 @@
+* {
+  font-family: poppins;
+}
+
+.header {
+  background-color: rgba(204, 204, 204, 0.25);
+  height: 6rem;
+  padding: 1rem 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 5rem;
+}
+
+nav {
+  display: flex;
+  gap: 5rem;
+}
+nav a {
+  font-size: 2.0625rem;
+}
+
+nav a,
+nav .active {
+  text-decoration: none;
+  font-weight: 600;
+  color: #000000;
+}
+
+nav .active {
+  color: #0A8BFF;
+}
+nav a:hover {
+  color: #50B748;
+}
+.logout {
+  border: 5px solid black;
+  border-radius: 9999px;
+  padding: .5rem 1rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  background-color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 9.6875rem;
+  height: 3.4375rem;
+}
+
+.logout:hover {
+  background-color: #1E1E1E;
+  color: #FFFFFF;
+}

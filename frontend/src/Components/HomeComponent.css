@@ -1,0 +1,149 @@
+* {
+  font-family: poppins;
+}
+
+.home-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.sidebar {
+  width: 29.375rem;
+  gap: 3.125rem;
+  display: flex;
+  height: 55rem;
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
+  flex-direction: column;
+  align-items: center;
+  border-right: solid 1px #5b5b5b;
+}
+
+.summary {
+  border: solid 0.0625rem rgba(0, 0, 0, 0.25);
+  width: 80%;
+  height: 38%;
+  border-radius: 1.25rem;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+}
+.summary p {
+  background-color: #f2f2f2;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  font-size: 1.5625rem;
+  font-weight: 600;
+}
+.main-content {
+  flex: 1;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.specialization-group {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.specialization-header {
+  background: white;
+  color: #000000;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
+  padding-left: 0.9375rem;
+  margin: 0px;
+  height: 3.125rem;
+  font-size: 1.25rem;
+  gap: 0.625rem;
+  /* padding: 10px; */
+  cursor: pointer;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+tr {
+  margin-bottom: 0.9375rem;
+}
+th,
+td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 17px;
+  font-weight: 500;
+}
+td {
+  border: none;
+  border-left: solid 1px rgba(0, 0, 0, 0.25);
+}
+
+input[type="checkbox"] {
+  margin: 0px 2.1875rem;
+}
+
+.attendance-checkbox {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #d1d5db;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  margin-right: 4px;
+  border: solid 0.0625rem rgba(0, 0, 0, 0.3);
+}
+
+.attendance-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.attendance-present:checked::after {
+  background-color: #22c55e;
+}
+
+.attendance-absent:checked::after {
+  background-color: #ef4444;
+}
+
+.save-btn {
+  display: block;
+  margin: 20px 20px 20px auto; 
+  background-color: #0A8BFF;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: .5rem 1rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  cursor: pointer;
+  width: 9.6875rem;
+  height: 3.4375rem;
+  transition: all 0.5s ease; 
+}
+
+.save-btn:hover {
+  background-color: #50B748;
+  color: #FFFFFF;
+}
