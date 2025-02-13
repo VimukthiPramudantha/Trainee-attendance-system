@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import axios from "axios";
 import "./HomeComponent.css";
+import { API_PREFIX } from "../Config/Api";
 
 const HomeComponent = () => {
   const [date, setDate] = useState(new Date());
   const [attendanceRecords, setAttendanceRecords] = useState({});
   const [expandedSpecializations, setExpandedSpecializations] = useState({});
+  const [trainees, setTrainees] = useState([]);
 
   // Specialization mapping based on weekdays
   const specializationByDay = {
@@ -17,46 +20,38 @@ const HomeComponent = () => {
     Friday: ["React", "MERN", "QA"],
   };
 
-  // Sample trainees (Grouped by Specialization)
-  const allTrainees = [
-    { id: 101, name: "Alice Johnson", specialization: "C#" },
-    { id: 102, name: "Michael Brown", specialization: "Project Managers" },
-    { id: 103, name: "David Smith", specialization: "BA" },
-    { id: 104, name: "Sophia Martinez", specialization: "DevOps" },
-    { id: 105, name: "Chris Wilson", specialization: "AI & Data Science" },
-    { id: 201, name: "Emma Davis", specialization: "Python" },
-    { id: 202, name: "Noah Thomas", specialization: "BCMS" },
-    { id: 203, name: "Olivia White", specialization: "Chatbot" },
-    { id: 301, name: "Liam Roberts", specialization: "PHP" },
-    { id: 302, name: "Emily Clark", specialization: "UI/UX" },
-    { id: 303, name: "Ethan Hall", specialization: "WordPress" },
-    { id: 401, name: "Mason Scott", specialization: "Java" },
-    { id: 402, name: "Ava Lewis", specialization: "PowerProx" },
-    { id: 501, name: "James Walker", specialization: "React" },
-    { id: 502, name: "Isabella Young", specialization: "MERN" },
-    { id: 503, name: "Benjamin Allen", specialization: "QA" },
-  ];
-
   // Get the selected weekday name
   const getDayOfWeek = (date) => {
     return new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
   };
 
-  // Filter trainees based on selected date's specializations
-  const [trainees, setTrainees] = useState([]);
+  // Fetch trainees from the database
   useEffect(() => {
-    const day = getDayOfWeek(date);
-    const allowedSpecializations = specializationByDay[day] || [];
-    const filteredTrainees = allTrainees.filter((t) =>
-      allowedSpecializations.includes(t.specialization)
-    );
-    setTrainees(filteredTrainees);
+    const fetchTrainees = async () => {
+      try {
+        const response = await axios.get(`${API_PREFIX}trainees/all`); 
+        const allTrainees = response.data;
+
+        const day = getDayOfWeek(date);
+        const allowedSpecializations = specializationByDay[day] || [];
+
+        // Filter trainees based on specialization
+        const filteredTrainees = allTrainees.filter((t) =>
+          allowedSpecializations.includes(t.specialization)
+        );
+        setTrainees(filteredTrainees);
+      } catch (error) {
+        console.error("Error fetching trainees:", error);
+      }
+    };
+
+    fetchTrainees();
   }, [date]);
 
   // Get attendance for the selected date
   const attendance = attendanceRecords[date.toDateString()] || {};
 
-  // Handle attendance checkboxes (only one selectable per trainee)
+  // Handle attendance checkboxes
   const handleAttendanceChange = (id, status) => {
     setAttendanceRecords((prevRecords) => {
       const updatedRecords = { ...prevRecords };
@@ -79,19 +74,44 @@ const HomeComponent = () => {
     }));
   };
 
+    // Submit attendance
+    const saveAttendance = async () => {
+      try {
+        const date = new Date().toISOString().split("T")[0]; // Current date (YYYY-MM-DD)
+  
+        // Convert attendance object into an array of records
+        const attendanceRecords = Object.keys(attendance).map((traineeID) => ({
+          traineeID,
+          date,
+          status: attendance[traineeID],
+        }));
+  
+        // Send attendance data to the backend
+        await Promise.all(
+          attendanceRecords.map(record =>
+            axios.post(`${API_PREFIX}attendance/mark`, record)
+          )
+        );
+  
+        alert("Attendance marked successfully!");
+      } catch (error) {
+        console.error("Error marking attendance:", error);
+        alert("Failed to mark attendance.");
+      }
+    };
+
+
   return (
     <div className="home-container">
       <div className="sidebar">
         <Calendar onChange={setDate} value={date} />
         <div className="summary">
-          <p>Total Trainees : {trainees.length}</p>
+          <p>Total Trainees: {trainees.length}</p>
           <p>
-            Present :{" "}
-            {Object.values(attendance).filter((a) => a === "Present").length}
+            Present: {Object.values(attendance).filter((a) => a === "Present").length}
           </p>
           <p>
-            Absent :{" "}
-            {Object.values(attendance).filter((a) => a === "Absent").length}
+            Absent: {Object.values(attendance).filter((a) => a === "Absent").length}
           </p>
         </div>
       </div>
@@ -104,10 +124,7 @@ const HomeComponent = () => {
 
           return specializationByDay[day].map((spec) => (
             <div key={spec} className="specialization-group">
-              <div
-                className="specialization-header"
-                onClick={() => toggleSpecialization(spec)}
-              >
+              <div className="specialization-header" onClick={() => toggleSpecialization(spec)}>
                 <h3>{spec}</h3>
                 <span>{expandedSpecializations[spec] ? "▼" : "▶"}</span>
               </div>
@@ -126,8 +143,8 @@ const HomeComponent = () => {
                     {trainees
                       .filter((t) => t.specialization === spec)
                       .map((trainee) => (
-                        <tr key={trainee.id}>
-                          <td>{trainee.id}</td>
+                        <tr key={trainee.traineeID}>
+                          <td>{trainee.traineeID}</td>
                           <td>{trainee.name}</td>
                           <td>{trainee.specialization}</td>
                           <td>
@@ -135,19 +152,14 @@ const HomeComponent = () => {
                               <input
                                 type="checkbox"
                                 className="attendance-checkbox attendance-present"
-                                checked={attendance[trainee.id] === "Present"}
-                                onChange={() =>
-                                  handleAttendanceChange(trainee.id, "Present")
-                                }
+                                checked={attendance[trainee.traineeID] === "Present"}
+                                onChange={() => handleAttendanceChange(trainee.traineeID, "Present")}
                               />
-
                               <input
                                 type="checkbox"
                                 className="attendance-checkbox attendance-absent"
-                                checked={attendance[trainee.id] === "Absent"}
-                                onChange={() =>
-                                  handleAttendanceChange(trainee.id, "Absent")
-                                }
+                                checked={attendance[trainee.traineeID] === "Absent"}
+                                onChange={() => handleAttendanceChange(trainee.traineeID, "Absent")}
                               />
                             </div>
                           </td>
@@ -160,7 +172,7 @@ const HomeComponent = () => {
           ));
         })}
 
-        <button className="save-btn">Save </button>
+        <button onClick={saveAttendance} className="save-btn">Save</button>
       </div>
     </div>
   );

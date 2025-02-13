@@ -3,18 +3,7 @@ import "./HistoryComponent.css"; // Ensure you have a CSS file for styling
 
 const HistoryComponent = () => {
   const [history, setHistory] = useState([
-    {
-      id: 1,
-      range: "February 10th - 14th",
-      editable: true,
-      date: new Date("2024-02-10"),
-    },
-    {
-      id: 2,
-      range: "February 3rd - 7th",
-      editable: false,
-      date: new Date("2024-02-03"),
-    },
+    
   ]);
   const [reports, setReports] = useState([]);
 
