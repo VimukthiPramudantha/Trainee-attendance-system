@@ -28,6 +28,7 @@ const traineeRoutes = require("./routes/traineeRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 
 // Use Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/trainees", traineeRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
