@@ -1,0 +1,103 @@
+* {
+  font-family: poppins;
+}
+
+.history-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.history-header {
+  text-align: center;
+  height: 6.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.history-item {
+  height: 6.25rem;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f9f9;
+  padding: 10px 60px;
+  margin-bottom: 1.875rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.history-details {
+  font-size: 1.875rem;
+  font-weight: 600;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.date-range {
+  font-weight: bold;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding: 4px 10px;
+  border-radius: 1.25rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.status.editable {
+  background: #d4f8d4;
+  color: #007b00;
+}
+
+.status.locked {
+  background: #ffd6d6;
+  color: #d00000;
+}
+
+.history-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.view-btn {
+  width: 6.875rem;
+  height: 3.125rem;
+  border-radius: 1.25rem;
+  background: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  /* border-radius: 6px; */
+  cursor: pointer;
+}
+
+.edit-btn {
+  width: 6.875rem;
+  height: 3.125rem;
+  border-radius: 1.25rem;
+  background: #28a745;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  /* border-radius: 6px; */
+  cursor: pointer;
+}
+
+.edit-btn.disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}

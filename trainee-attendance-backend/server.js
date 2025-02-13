@@ -9,7 +9,8 @@ require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
+
 
 const URL = process.env.MONGODB_URL;
 
@@ -21,6 +22,7 @@ connection.once("open", () => {
   console.log("MongoDB connection success...");
 });
 
+
 // Import Routes
 const traineeRoutes = require("./routes/traineeRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
@@ -29,6 +31,6 @@ const attendanceRoutes = require("./routes/attendanceRoutes");
 app.use("/api/trainees", traineeRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

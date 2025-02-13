@@ -1,16 +1,16 @@
 import React from "react";
 import Header from "../Components/Header";
+import ReportComponent from "../Components/ReportComponent";
 import Footer from "../Components/Footer";
-import HistoryComponent from "../Components/HistoryComponent";
 
-function History() {
+function Reports() {
   return (
     <>
       <Header />
-      <HistoryComponent/>
+      <ReportComponent />
       <Footer />
     </>
   );
 }
 
-export default History;
+export default Reports;
