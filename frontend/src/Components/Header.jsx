@@ -1,9 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
 import sltLogo from "../assets/sltLogo.png";
 
 const Header = () => {
+
+  const navigate = useNavigate();
+    // Logout function
+    const handleLogout = () => {
+      sessionStorage.clear();
+      localStorage.clear();
+      navigate("/login"); 
+    };
+
   return (
     <header className="header">
       {/* Logo */}
@@ -34,7 +43,7 @@ const Header = () => {
       </nav>
 
       {/* Logout Button */}
-      <button className="logout">Logout</button>
+      <button className="logout" onClick={handleLogout}>Logout</button>
     </header>
   );
 };
